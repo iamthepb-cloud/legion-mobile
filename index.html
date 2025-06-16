@@ -4,45 +4,165 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>B L Suppliers</title>
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
-    body { font-family: Arial,sans-serif; margin:0;padding:0; background:#f5f5f5; transition: .3s;}
-    body.dark-mode{background:#121212;color:#e0e0e0;}
-    header{background:#000; padding:10px 20px; display:flex; align-items:center; justify-content:space-between;}
-    .logo img{height:50px;}
-    nav{background:#fff; text-align:center; padding:10px;}
-    nav a{margin:0 15px;color:#000;text-decoration:none;font-weight:bold;}
-    nav a i{margin-right:5px;}
-    .search-box{display:flex;align-items:center;}
-    .settings{text-align:center;padding:10px;}
-    button.toggle{margin:0 5px;padding:5px 15px;cursor:pointer;}
-    .banner img{width:95%;border-radius:10px;margin:20px;}
-    .products{padding:20px;}
-    .category{margin-bottom:40px;}
-    .product-list{display:flex;flex-wrap:wrap;justify-content:center;}
-    .product{background:#fff;border:1px solid #ccc;width:200px;margin:10px;border-radius:8px;overflow:hidden;}
-    body.dark-mode .product{background:#1e1e1e;border-color:#444;}
-    .product img{width:100%;height:auto;}
-    .product h4{margin:8px;font-size:16px;}
-    .product p{margin:4px;font-size:14px;}
-    footer{background:#fff;padding:20px;text-align:center;font-weight:bold;}
-    body.dark-mode footer{background:#1e1e1e;}
-  </style>
-  <script>
-    function toggleDarkMode(){document.body.classList.toggle("dark-mode");}
-    function changeLanguage(lang){
-      const isNp=lang==='np';
-      document.title=isNp?"बीएल सप्लायर्स":"B L Suppliers";
-      document.getElementById("title").textContent=isNp?"बीएल सप्लायर्स":"B L Suppliers";
-      document.getElementById("search").placeholder=isNp?"उत्पादन खोज्नुहोस्":"Search for product";
+    /* Keep original font and improve layout */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      transition: background 0.3s, color 0.3s;
     }
-    function searchProducts(){
-      const q=document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('.product').forEach(p=>{
-        p.style.display=p.innerText.toLowerCase().includes(q)?'block':'none';
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
+    }
+    header {
+      background: #000;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo img {
+      height: 50px;
+    }
+    nav {
+      background: #fff;
+      padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a.active {
+      color: #1976d2;
+    }
+    nav a i {
+      margin-right: 5px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+    }
+    .search-box input {
+      padding: 5px;
+      width: 200px;
+    }
+    .search-box button {
+      padding: 5px 10px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .settings {
+      text-align: center;
+      padding: 10px;
+    }
+    button.toggle {
+      margin: 0 5px;
+      padding: 5px 15px;
+      cursor: pointer;
+    }
+    .hero {
+      background: url('banner.jpg') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .products {
+      padding: 20px;
+    }
+    .category {
+      margin-bottom: 40px;
+    }
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product {
+      background: #fff;
+      border: 1px solid #ccc;
+      width: 200px;
+      margin: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .product:hover {
+      transform: scale(1.03);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .product img {
+      width: 100%;
+      height: auto;
+    }
+    .product h4 {
+      margin: 8px;
+      font-size: 16px;
+    }
+    .product p {
+      margin: 4px 8px;
+      font-size: 14px;
+    }
+    body.dark-mode .product {
+      background: #1e1e1e;
+      border-color: #444;
+    }
+    footer {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    body.dark-mode footer {
+      background: #1e1e1e;
+    }
+  </style>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+    function changeLanguage(lang) {
+      const isNp = lang === 'np';
+      document.title = isNp ? "बी एल सप्लायर्स" : "B L Suppliers";
+      document.getElementById("site-title").textContent = isNp ? "बी एल सप्लायर्स" : "B L Suppliers";
+      document.getElementById("search").placeholder = isNp ? "उत्पादन खोज्नुहोस्" : "Search for product";
+    }
+    function searchProducts() {
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.product').forEach(p => {
+        p.style.display = p.innerText.toLowerCase().includes(q) ? 'block' : 'none';
       });
     }
+    // Highlight active nav link
+    window.addEventListener('scroll', () => {
+      const sections = ['home','mobile','tablets','laptops'];
+      sections.forEach(sec => {
+        const el = document.getElementById(sec);
+        const rect = el.getBoundingClientRect();
+        const link = document.querySelector(`nav a[href="#${sec}"]`);
+        link && link.classList.toggle('active', rect.top >= 0 && rect.top < 200);
+      });
+    });
   </script>
 </head>
 <body>
@@ -50,7 +170,7 @@
 <header>
   <div class="logo">
     <img src="logo.png" alt="B L Suppliers Logo">
-    <h1 id="title">B L Suppliers</h1>
+    <h1 id="site-title">B L Suppliers</h1>
   </div>
   <div class="search-box">
     <input type="text" id="search" placeholder="Search for product">
@@ -59,6 +179,7 @@
 </header>
 
 <nav>
+  <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
   <a href="#mobile"><i class="fas fa-mobile-alt"></i> Mobile Phones</a>
   <a href="#tablets"><i class="fas fa-tablet-alt"></i> Tablets</a>
   <a href="#laptops"><i class="fas fa-laptop"></i> Laptops & PCs</a>
@@ -70,55 +191,107 @@
   <button class="toggle" onclick="changeLanguage('np')">नेपाली</button>
 </div>
 
-<div class="banner">
-  <img src="iphone16.jpg" alt="Promotional Banner">
+<div id="home" class="hero">
+  Welcome to B L Suppliers – Your Tech Haven
 </div>
 
 <main class="products">
 
-  <!-- Mobile Phones -->
   <section id="mobile" class="category">
     <h2>Mobile Phones</h2>
     <div class="product-list">
-      <!-- Samsung Galaxy S24 -->
+      <!-- Samsung -->
       <div class="product">
-        <img src="https://via.placeholder.com/200x200?text=S24" alt="Samsung S24">
+        <img src="https://via.placeholder.com/200?text=Samsung+S24" alt="Samsung S24">
         <h4>Samsung Galaxy S24</h4>
-        <p>6.2″ Dynamic AMOLED, Snapdragon 8 Gen 3, 8 GB/128 GB, 4000 mAh</p>
+        <p>6.2″ AMOLED • Snapdragon 8 Gen 3 • 8 GB/128 GB • 4000 mAh</p>
       </div>
-      <!-- Add 4 more from Apple, Vivo, OnePlus, Xiaomi similarly -->
+      <!-- Apple -->
       <div class="product">
-        <img src="https://via.placeholder.com/200x200?text=iPhone+15" alt="iPhone 15">
+        <img src="https://via.placeholder.com/200?text=iPhone+15" alt="iPhone 15">
         <h4>Apple iPhone 15</h4>
-        <p>6.1″ OLED, A16 Bionic, 8 GB RAM, 48 MP</p>
+        <p>6.1″ OLED • A16 Bionic • 8 GB/128 GB • 48 MP</p>
       </div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Vivo" alt="Vivo"><h4>Vivo X90</h4><p>6.78″ AMOLED, Dimensity 9200+, 12 GB/256 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=OnePlus" alt="OnePlus"><h4>OnePlus 12</h4><p>6.82″ Fluid AMOLED, Snapdragon 8 Gen 3, 16 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Xiaomi" alt="Xiaomi"><h4>Xiaomi 14</h4><p>6.36″ AMOLED, Snapdragon 8 Gen 3, 12 GB</p></div>
+      <!-- Vivo -->
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Vivo+X90" alt="Vivo X90">
+        <h4>Vivo X90</h4>
+        <p>6.78″ AMOLED • Dimensity 9200+ • 12 GB/256 GB</p>
+      </div>
+      <!-- OnePlus -->
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=OnePlus+12" alt="OnePlus 12">
+        <h4>OnePlus 12</h4>
+        <p>6.82″ AMOLED • Snapdragon 8 Gen 3 • 16 GB/256 GB</p>
+      </div>
+      <!-- Xiaomi -->
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Xiaomi+14" alt="Xiaomi 14">
+        <h4>Xiaomi 14</h4>
+        <p>6.36″ AMOLED • Snapdragon 8 Gen 3 • 12 GB/256 GB</p>
+      </div>
     </div>
   </section>
 
-  <!-- Tablets -->
   <section id="tablets" class="category">
     <h2>Tablets</h2>
     <div class="product-list">
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=iPad+Pro" alt="iPad Pro"><h4>Apple iPad Pro 11″</h4><p>11″ Liquid Retina, M2 chip, 128 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Samsung+Tab+S9" alt="Samsung Tab S9"><h4>Samsung Galaxy Tab S9</h4><p>11″ AMOLED, Snapdragon 8 Gen 2, 256 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Realme+Pad" alt="Realme Pad"><h4>Realme Pad</h4><p>10.4″ IPS, Helio G80, 4 GB/64 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=OPPO+Pad" alt="OPPO Pad"><h4>OPPO Pad</h4><p>11″ LCD, Snapdragon 870, 8 GB/256 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Honor+Pad+8" alt="Honor Pad 8"><h4>Honor Pad 8</h4><p>12″ IPS, Snapdragon 680, 6 GB/128 GB</p></div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=iPad+Pro+11" alt="iPad Pro">
+        <h4>Apple iPad Pro 11″</h4>
+        <p>11″ Liquid Retina • M2 • 128 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Sams+Tab+S9" alt="Samsung Tab S9">
+        <h4>Samsung Galaxy Tab S9</h4>
+        <p>11″ AMOLED • Snapdragon 8 Gen 2 • 256 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Realme+Pad" alt="Realme Pad">
+        <h4>Realme Pad</h4>
+        <p>10.4″ IPS • Helio G80 • 4 GB/64 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=OPPO+Pad" alt="OPPO Pad">
+        <h4>OPPO Pad</h4>
+        <p>11″ LCD • Snapdragon 870 • 8 GB/256 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Honor+Pad+8" alt="Honor Pad 8">
+        <h4>Honor Pad 8</h4>
+        <p>12″ IPS • Snapdragon 680 • 6 GB/128 GB</p>
+      </div>
     </div>
   </section>
 
-  <!-- Laptops & PCs -->
   <section id="laptops" class="category">
     <h2>Laptops & Computers</h2>
     <div class="product-list">
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=MacBook+Air+M2" alt="MacBook Air M2"><h4>Apple MacBook Air M2 13″</h4><p>M2, 8 GB/256 GB, 1.24 kg</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Dell+XPS+13" alt="Dell XPS 13"><h4>Dell XPS 13</h4><p>13″ FHD+, Intel i7‑1250U, 16 GB/512 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=HP+Pavilion" alt="HP Pavilion"><h4>HP Pavilion 14″</h4><p>14″ IPS, Ryzen 7 7730U, 16 GB/512 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=Lenovo+ThinkPad" alt="Lenovo ThinkPad"><h4>Lenovo ThinkPad X1 Carbon</h4><p>14″ IPS, i7‑1365U, 16 GB/512 GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200x200?text=MSI+Stealth" alt="MSI Stealth"><h4>MSI Stealth 15</h4><p>15.6″ FHD, RTX 4060, 16 GB/512 GB</p></div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=MacBook+Air+M2" alt="MacBook Air M2">
+        <h4>Apple MacBook Air M2 13″</h4>
+        <p>M2 • 8 GB/256 GB • 1.24 kg</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Dell+XPS+13" alt="Dell XPS 13">
+        <h4>Dell XPS 13</h4>
+        <p>13″ FHD+ • Intel i7‑1250U • 16 GB/512 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=HP+Pavilion" alt="HP Pavilion">
+        <h4>HP Pavilion 14″</h4>
+        <p>14″ IPS • Ryzen 7 7730U • 16 GB/512 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=Lenovo+X1" alt="Lenovo ThinkPad X1 Carbon">
+        <h4>Lenovo ThinkPad X1 Carbon</h4>
+        <p>14″ IPS • i7‑1365U • 16 GB/512 GB</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/200?text=MSI+Stealth+15" alt="MSI Stealth 15">
+        <h4>MSI Stealth 15</h4>
+        <p>15.6″ FHD • RTX 4060 • 16 GB/512 GB</p>
+      </div>
     </div>
   </section>
 
@@ -128,3 +301,4 @@
 
 </body>
 </html>
+
