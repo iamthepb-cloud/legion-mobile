@@ -4,132 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>B L Suppliers</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Font Awesome icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f5f5f5;
-      transition: 0.3s;
-    }
-    body.dark-mode {
-      background: #121212; color: #e0e0e0;
-    }
-    header {
-      background: #000; color: white;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo img {
-      height: 50px;
-    }
-    nav {
-      background: #fff;
-      padding: 10px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      margin: 0 15px;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      color: #1976d2;
-    }
-    .search-box input {
-      padding: 5px; width: 200px;
-    }
-    .search-box button {
-      padding: 5px 10px;
-      background: black; color: white;
-      border: none; cursor: pointer;
-    }
-    .settings {
-      text-align: center;
-      padding: 10px;
-    }
-    button.toggle {
-      margin: 0 5px;
-      padding: 5px 15px;
-      cursor: pointer;
-    }
-    .hero {
-      background: url('banner.jpg') center/cover no-repeat;
-      height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-    .products {
-      padding: 20px;
-    }
-    .category {
-      margin-bottom: 40px;
-    }
-    .product-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .product {
-      background: #fff;
-      border: 1px solid #ccc;
-      width: 200px;
-      margin: 10px;
-      border-radius: 8px;
-      overflow: hidden;
-      text-align: center;
-    }
-    .product img {
-      width: 100%;
-      height: auto;
-    }
-    .product h4 {
-      margin: 8px;
-      font-size: 16px;
-    }
-    .product p {
-      margin: 4px;
-      font-size: 14px;
-    }
-    body.dark-mode .product {
-      background: #1e1e1e;
-      border-color: #444;
-    }
-    footer {
-      background: #fff;
-      padding: 20px;
-      text-align: center;
-      font-weight: bold;
-    }
-    body.dark-mode footer {
-      background: #1e1e1e;
-    }
+    body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; transition:.3s; }
+    body.dark-mode { background:#121212; color:#e0e0e0; }
+    header { background:#000; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; }
+    .logo img { height:50px; }
+    nav { background:#fff; padding:10px; text-align:center; position:sticky; top:0; z-index:100;}
+    nav a { margin:0 15px; color:#000; text-decoration:none; font-weight:bold; }
+    nav a:hover { color:#1976d2; }
+    .hero { background:url('banner.jpg') center/cover no-repeat; height:300px; display:flex; align-items:center; justify-content:center; color:#fff; text-shadow:1px 1px 4px rgba(0,0,0,0.7); font-size:2.5rem; font-weight:bold; }
+    .content { padding:20px; max-width:1200px; margin:0 auto; }
+    .dialogue { background:#fff; padding:15px; border-radius:8px; margin-bottom:30px; }
+    .dialogue p { margin:10px 0; }
+    .products { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+    .product { background:#fff; border:1px solid #ddd; border-radius:8px; width:220px; overflow:hidden; transition:.2s; text-align:center; }
+    .product:hover { transform:scale(1.05); box-shadow:0 2px 8px rgba(0,0,0,0.2); }
+    .product img { width:100%; height:auto; }
+    .product h4 { margin:10px; font-size:16px; }
+    .product p { margin:5px 10px; font-size:14px; }
+    footer { background:#fff; text-align:center; padding:20px; font-weight:bold; }
+    .settings { text-align:center; padding:10px; }
+    button { margin:0 5px; padding:5px 15px; cursor:pointer; }
   </style>
   <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
+    function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); }
+    function changeLanguage(l){ 
+      const t = document.getElementById('site-title');
+      const s = document.getElementById('search');
+      if(l==='np'){ document.title = t.textContent = 'बी एल सप्लायर्स'; s.placeholder = 'उत्पादन खोज्नुहोस्'; }
+      else { document.title = t.textContent = 'B L Suppliers'; s.placeholder = 'Search for product'; }
     }
-    function changeLanguage(lang) {
-      const isNp = lang === 'np';
-      document.title = isNp ? "बी एल सप्लायर्स" : "B L Suppliers";
-      document.getElementById("site-title").textContent = document.title;
-      document.getElementById("search").placeholder = isNp ? "उत्पादन खोज्नुहोस्" : "Search for product";
-    }
-    function searchProducts() {
+    function searchProducts(){
       const q = document.getElementById('search').value.toLowerCase();
       document.querySelectorAll('.product').forEach(p => {
-        p.style.display = p.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+        p.style.display = p.innerText.toLowerCase().includes(q)?'block':'none';
       });
     }
   </script>
@@ -138,69 +48,70 @@
 
 <header>
   <div class="logo">
-    <img src="logo.png" alt="B L Suppliers Logo">
+    <img src="logo.png" alt="B L Suppliers">
     <h1 id="site-title">B L Suppliers</h1>
   </div>
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search for product">
-    <button onclick="searchProducts()">Search</button>
+  <div>
+    <input id="search" type="text" placeholder="Search for product">
+    <button onclick="searchProducts()">🔍</button>
   </div>
 </header>
 
 <nav>
-  <a href="#mobile"><i class="fas fa-mobile-alt"></i> Mobile Phones</a>
+  <a href="#home"><i class="fas fa-home"></i> Home</a>
+  <a href="#mobile"><i class="fas fa-mobile-alt"></i> Mobiles</a>
   <a href="#tablet"><i class="fas fa-tablet-alt"></i> Tablets</a>
   <a href="#laptop"><i class="fas fa-laptop"></i> Laptops</a>
 </nav>
 
 <div class="settings">
-  <button class="toggle" onclick="toggleDarkMode()">Dark Mode</button>
-  <button class="toggle" onclick="changeLanguage('en')">English</button>
-  <button class="toggle" onclick="changeLanguage('np')">नेपाली</button>
+  <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+  <button onclick="changeLanguage('en')">English</button>
+  <button onclick="changeLanguage('np')">नेपाली</button>
 </div>
 
-<div class="hero">
-  Welcome to B L Suppliers
+<section id="home" class="hero">
+  Excellence in Tech — Welcome to B L Suppliers!
+</section>
+
+<div class="content">
+  <div class="dialogue">
+    <p><strong>Customer:</strong> Do you have the new Samsung Galaxy S24?</p>
+    <p><strong>B L Suppliers:</strong> Yes, it’s newly in stock! We also have iPhone 15, Vivo, OnePlus, Xiaomi, and more.</p>
+  </div>
+
+  <h2 id="mobile">📱 Mobile Phones</h2>
+  <div class="products">
+    <div class="product"><img src="https://via.placeholder.com/220?text=Samsung+S24"><h4>Samsung Galaxy S24</h4><p>6.2″ AMOLED • 8GB/128GB</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=iPhone+15"><h4>Apple iPhone 15</h4><p>6.1″ OLED • A16 Bionic</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Vivo+X90"><h4>Vivo X90</h4><p>6.78″ AMOLED • 12GB RAM</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=OnePlus+12"><h4>OnePlus 12</h4><p>6.82″ AMOLED • 16GB RAM</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Xiaomi+14"><h4>Xiaomi 14</h4><p>6.36″ AMOLED</p></div>
+  </div>
+
+  <h2 id="tablet">📋 Tablets</h2>
+  <div class="products">
+    <div class="product"><img src="https://via.placeholder.com/220?text=iPad+Pro"><h4>Apple iPad Pro</h4><p>11″ Retina • M2</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Galaxy+Tab+S9"><h4>Samsung Galaxy Tab S9</h4><p>11″ AMOLED</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Realme+Pad"><h4>Realme Pad</h4><p>10.4″ IPS • 4GB</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=OPPO+Pad"><h4>OPPO Pad</h4><p>11″ LCD • 8GB</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Honor+Pad+8"><h4>Honor Pad 8</h4><p>12″ IPS • 6GB</p></div>
+  </div>
+
+  <h2 id="laptop">💻 Laptops & PCs</h2>
+  <div class="products">
+    <div class="product"><img src="https://via.placeholder.com/220?text=MacBook+Air"><h4>Apple MacBook Air M2</h4><p>13″ Retina • M2</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Dell+XPS+13"><h4>Dell XPS 13</h4><p>13″ FHD • i7</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=HP+Pavilion"><h4>HP Pavilion 14″</h4><p>Ryzen 7 • 512GB</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=Lenovo+X1"><h4>Lenovo ThinkPad X1</h4><p>14″ • i7 • 16GB</p></div>
+    <div class="product"><img src="https://via.placeholder.com/220?text=MSI+Stealth+15"><h4>MSI Stealth 15</h4><p>15.6″ • RTX 4060</p></div>
+  </div>
 </div>
 
-<main class="products">
-
-  <section id="mobile" class="category">
-    <h2>Mobile Phones</h2>
-    <div class="product-list">
-      <div class="product"><img src="https://via.placeholder.com/200?text=Samsung+S24"><h4>Samsung Galaxy S24</h4><p>6.2\" AMOLED, 8GB RAM, 128GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=iPhone+15"><h4>Apple iPhone 15</h4><p>6.1\" OLED, A16 Bionic, 48MP</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Vivo+X90"><h4>Vivo X90</h4><p>6.78\" AMOLED, 12GB RAM</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=OnePlus+12"><h4>OnePlus 12</h4><p>6.82\" AMOLED, 16GB RAM</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Xiaomi+14"><h4>Xiaomi 14</h4><p>6.36\" AMOLED, Snapdragon 8 Gen 3</p></div>
-    </div>
-  </section>
-
-  <section id="tablet" class="category">
-    <h2>Tablets</h2>
-    <div class="product-list">
-      <div class="product"><img src="https://via.placeholder.com/200?text=iPad+Pro"><h4>Apple iPad Pro</h4><p>11\" Retina, M2 Chip</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Galaxy+Tab+S9"><h4>Samsung Tab S9</h4><p>11\" AMOLED, 128GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Realme+Pad"><h4>Realme Pad</h4><p>10.4\" IPS, Helio G80</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=OPPO+Pad"><h4>OPPO Pad</h4><p>11\" LCD, Snapdragon 870</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Honor+Pad+8"><h4>Honor Pad 8</h4><p>12\" IPS, 6GB RAM</p></div>
-    </div>
-  </section>
-
-  <section id="laptop" class="category">
-    <h2>Laptops & Computers</h2>
-    <div class="product-list">
-      <div class="product"><img src="https://via.placeholder.com/200?text=MacBook+Air"><h4>MacBook Air M2</h4><p>13\" Retina, M2 Chip</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Dell+XPS+13"><h4>Dell XPS 13</h4><p>13\" FHD, i7, 512GB SSD</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=HP+Pavilion"><h4>HP Pavilion</h4><p>14\", Ryzen 7, 512GB</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=Lenovo+X1"><h4>Lenovo ThinkPad X1</h4><p>14\", i7, 16GB RAM</p></div>
-      <div class="product"><img src="https://via.placeholder.com/200?text=MSI+Stealth"><h4>MSI Stealth 15</h4><p>15.6\", RTX 4060</p></div>
-    </div>
-  </section>
-
-</main>
-
-<footer>Contact: 980000070790</footer>
+<footer>
+  Contact us: <a href="tel:9863703722">9863703722</a>
+</footer>
 
 </body>
 </html>
+
