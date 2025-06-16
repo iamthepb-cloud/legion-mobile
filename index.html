@@ -4,127 +4,44 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>B L Suppliers</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      transition: background 0.3s, color 0.3s;
-    }
-    body.dark-mode {
-      background: #121212;
-      color: #e0e0e0;
-    }
-    header {
-      background-color: #1976d2;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-    .logo img {
-      height: 40px;
-      margin-right: 10px;
-    }
-    nav a {
-      margin: 0 10px;
-      color: black;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    body.dark-mode nav a {
-      color: #e0e0e0;
-    }
-    .search-box {
-      display: flex;
-      align-items: center;
-    }
-    .search-box input {
-      padding: 5px;
-      width: 200px;
-    }
-    .search-box button {
-      padding: 5px 10px;
-      background-color: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .banner {
-      width: 100%;
-      text-align: center;
-      padding: 20px;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-    .product {
-      background: white;
-      border: 1px solid #ccc;
-      margin: 10px;
-      padding: 10px;
-      width: 200px;
-      text-align: center;
-    }
-    body.dark-mode .product {
-      background: #1e1e1e;
-      border-color: #444;
-    }
-    .product img {
-      width: 100%;
-      height: auto;
-    }
-    footer {
-      background: #ffffff;
-      padding: 20px;
-      text-align: center;
-      font-weight: bold;
-    }
-    body.dark-mode footer {
-      background: #1e1e1e;
-    }
-    .settings {
-      text-align: center;
-      padding: 10px;
-    }
-    button.toggle {
-      margin: 5px;
-      padding: 5px 15px;
-      cursor: pointer;
-    }
+    body { font-family: Arial,sans-serif; margin:0;padding:0; background:#f5f5f5; transition: .3s;}
+    body.dark-mode{background:#121212;color:#e0e0e0;}
+    header{background:#000; padding:10px 20px; display:flex; align-items:center; justify-content:space-between;}
+    .logo img{height:50px;}
+    nav{background:#fff; text-align:center; padding:10px;}
+    nav a{margin:0 15px;color:#000;text-decoration:none;font-weight:bold;}
+    nav a i{margin-right:5px;}
+    .search-box{display:flex;align-items:center;}
+    .settings{text-align:center;padding:10px;}
+    button.toggle{margin:0 5px;padding:5px 15px;cursor:pointer;}
+    .banner img{width:95%;border-radius:10px;margin:20px;}
+    .products{padding:20px;}
+    .category{margin-bottom:40px;}
+    .product-list{display:flex;flex-wrap:wrap;justify-content:center;}
+    .product{background:#fff;border:1px solid #ccc;width:200px;margin:10px;border-radius:8px;overflow:hidden;}
+    body.dark-mode .product{background:#1e1e1e;border-color:#444;}
+    .product img{width:100%;height:auto;}
+    .product h4{margin:8px;font-size:16px;}
+    .product p{margin:4px;font-size:14px;}
+    footer{background:#fff;padding:20px;text-align:center;font-weight:bold;}
+    body.dark-mode footer{background:#1e1e1e;}
   </style>
   <script>
-    function searchProducts() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const products = document.querySelectorAll('.product');
-      products.forEach(product => {
-        const text = product.textContent.toLowerCase();
-        product.style.display = text.includes(query) ? 'block' : 'none';
+    function toggleDarkMode(){document.body.classList.toggle("dark-mode");}
+    function changeLanguage(lang){
+      const isNp=lang==='np';
+      document.title=isNp?"बीएल सप्लायर्स":"B L Suppliers";
+      document.getElementById("title").textContent=isNp?"बीएल सप्लायर्स":"B L Suppliers";
+      document.getElementById("search").placeholder=isNp?"उत्पादन खोज्नुहोस्":"Search for product";
+    }
+    function searchProducts(){
+      const q=document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.product').forEach(p=>{
+        p.style.display=p.innerText.toLowerCase().includes(q)?'block':'none';
       });
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-    }
-
-    function changeLanguage(lang) {
-      const isNepali = lang === 'np';
-      document.querySelector("title").textContent = isNepali ? "बी एल सप्लायर्स" : "B L Suppliers";
-      document.getElementById("site-title").textContent = isNepali ? "बी एल सप्लायर्स" : "B L Suppliers";
-      document.getElementById("searchInput").placeholder = isNepali ? "उत्पादन खोज्नुहोस्" : "Search for product";
-      const navLinks = document.querySelectorAll("nav a");
-      const enText = ["Mobile Phones", "Tablets", "Laptops", "Accessories", "Repairs & Parts"];
-      const npText = ["मोबाइल फोन", "ट्याब्लेट", "ल्यापटप", "सामानहरू", "मर्मत र पार्टपुर्जाहरू"];
-      navLinks.forEach((link, i) => link.textContent = isNepali ? npText[i] : enText[i]);
     }
   </script>
 </head>
@@ -132,21 +49,19 @@
 
 <header>
   <div class="logo">
-    <img src="logo.png" alt="B L Suppliers">
-    <h1 id="site-title">B L Suppliers</h1>
+    <img src="logo.png" alt="B L Suppliers Logo">
+    <h1 id="title">B L Suppliers</h1>
   </div>
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search for product">
+    <input type="text" id="search" placeholder="Search for product">
     <button onclick="searchProducts()">Search</button>
   </div>
 </header>
 
-<nav style="background: white; padding: 10px; text-align: center;">
-  <a href="#mobile-phones">Mobile Phones</a>
-  <a href="#tablets">Tablets</a>
-  <a href="#laptops">Laptops</a>
-  <a href="#accessories">Accessories</a>
-  <a href="#repairs">Repairs & Parts</a>
+<nav>
+  <a href="#mobile"><i class="fas fa-mobile-alt"></i> Mobile Phones</a>
+  <a href="#tablets"><i class="fas fa-tablet-alt"></i> Tablets</a>
+  <a href="#laptops"><i class="fas fa-laptop"></i> Laptops & PCs</a>
 </nav>
 
 <div class="settings">
@@ -156,39 +71,61 @@
 </div>
 
 <div class="banner">
-  <img src="iphone16.jpg" alt="iPhone 16" style="width: 90%; border-radius: 10px;">
+  <img src="iphone16.jpg" alt="Promotional Banner">
 </div>
 
-<div class="products" id="mobile-phones">
-  <div class="product">
-    <img src="iphone15.jpg" alt="iPhone 15">
-    <h3>iPhone 15 Pro Max</h3>
-    <p>Rs. 185,000</p>
-    <p>6.7" OLED, A17 Bionic, 58MP Camera</p>
-  </div>
-  <div class="product">
-    <img src="tab.jpg" alt="Samsung Tab">
-    <h3>Samsung Galaxy Tab S9</h3>
-    <p>Rs. 308,000</p>
-    <p>8.1" AMOLED, 128GB SSD, USB-C</p>
-  </div>
-  <div class="product">
-    <img src="thinkpad.jpg" alt="Lenovo ThinkPad">
-    <h3>Lenovo ThinkPad X1</h3>
-    <p>Rs. 50,915</p>
-    <p>13.1" OLED, A17 Bionic, 128GB</p>
-  </div>
-  <div class="product">
-    <img src="dellxps.jpg" alt="Dell XPS">
-    <h3>Dell XPS 15</h3>
-    <p>Rs. 41,450</p>
-    <p>12.5" IHD, 48MP Camera, USB-C Fast Charging</p>
-  </div>
-</div>
+<main class="products">
 
-<footer>
-  Contact: 980000070790
-</footer>
+  <!-- Mobile Phones -->
+  <section id="mobile" class="category">
+    <h2>Mobile Phones</h2>
+    <div class="product-list">
+      <!-- Samsung Galaxy S24 -->
+      <div class="product">
+        <img src="https://via.placeholder.com/200x200?text=S24" alt="Samsung S24">
+        <h4>Samsung Galaxy S24</h4>
+        <p>6.2″ Dynamic AMOLED, Snapdragon 8 Gen 3, 8 GB/128 GB, 4000 mAh</p>
+      </div>
+      <!-- Add 4 more from Apple, Vivo, OnePlus, Xiaomi similarly -->
+      <div class="product">
+        <img src="https://via.placeholder.com/200x200?text=iPhone+15" alt="iPhone 15">
+        <h4>Apple iPhone 15</h4>
+        <p>6.1″ OLED, A16 Bionic, 8 GB RAM, 48 MP</p>
+      </div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Vivo" alt="Vivo"><h4>Vivo X90</h4><p>6.78″ AMOLED, Dimensity 9200+, 12 GB/256 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=OnePlus" alt="OnePlus"><h4>OnePlus 12</h4><p>6.82″ Fluid AMOLED, Snapdragon 8 Gen 3, 16 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Xiaomi" alt="Xiaomi"><h4>Xiaomi 14</h4><p>6.36″ AMOLED, Snapdragon 8 Gen 3, 12 GB</p></div>
+    </div>
+  </section>
+
+  <!-- Tablets -->
+  <section id="tablets" class="category">
+    <h2>Tablets</h2>
+    <div class="product-list">
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=iPad+Pro" alt="iPad Pro"><h4>Apple iPad Pro 11″</h4><p>11″ Liquid Retina, M2 chip, 128 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Samsung+Tab+S9" alt="Samsung Tab S9"><h4>Samsung Galaxy Tab S9</h4><p>11″ AMOLED, Snapdragon 8 Gen 2, 256 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Realme+Pad" alt="Realme Pad"><h4>Realme Pad</h4><p>10.4″ IPS, Helio G80, 4 GB/64 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=OPPO+Pad" alt="OPPO Pad"><h4>OPPO Pad</h4><p>11″ LCD, Snapdragon 870, 8 GB/256 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Honor+Pad+8" alt="Honor Pad 8"><h4>Honor Pad 8</h4><p>12″ IPS, Snapdragon 680, 6 GB/128 GB</p></div>
+    </div>
+  </section>
+
+  <!-- Laptops & PCs -->
+  <section id="laptops" class="category">
+    <h2>Laptops & Computers</h2>
+    <div class="product-list">
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=MacBook+Air+M2" alt="MacBook Air M2"><h4>Apple MacBook Air M2 13″</h4><p>M2, 8 GB/256 GB, 1.24 kg</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Dell+XPS+13" alt="Dell XPS 13"><h4>Dell XPS 13</h4><p>13″ FHD+, Intel i7‑1250U, 16 GB/512 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=HP+Pavilion" alt="HP Pavilion"><h4>HP Pavilion 14″</h4><p>14″ IPS, Ryzen 7 7730U, 16 GB/512 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=Lenovo+ThinkPad" alt="Lenovo ThinkPad"><h4>Lenovo ThinkPad X1 Carbon</h4><p>14″ IPS, i7‑1365U, 16 GB/512 GB</p></div>
+      <div class="product"><img src="https://via.placeholder.com/200x200?text=MSI+Stealth" alt="MSI Stealth"><h4>MSI Stealth 15</h4><p>15.6″ FHD, RTX 4060, 16 GB/512 GB</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Contact: 980000070790</footer>
 
 </body>
 </html>
+
